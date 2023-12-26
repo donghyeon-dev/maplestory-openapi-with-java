@@ -32,4 +32,18 @@ public interface CharacterClient {
     @GetMapping("/maplestory/v1/character/hyper-stat")
     CharacterHyperStat getCharacterHyperStat(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);
+
+    // 캐릭터 성향 정보 가져오기
+    @GetMapping("/maplestory/v1/character/propensity")
+    CharacterPropensity getCharacterPropensity(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
+
+    // 캐릭터 어빌리티 정보 가져오기
+    @GetMapping("/maplestory/v1/character/ability")
+    CharacterAbility getCharacterAbility(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
+
+    @GetMapping("/maplestory/v1/character/item-equipment")
+    CharacterItemEquipment getCharacterItemEquipment(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
 }

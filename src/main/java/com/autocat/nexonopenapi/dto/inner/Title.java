@@ -1,13 +1,12 @@
 package com.autocat.nexonopenapi.dto.inner;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
-import org.hibernate.annotations.Comment;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
+import java.time.OffsetDateTime;
 
 
 /**
@@ -18,14 +17,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
-@JsonRootName("final_stat")
-public class FinalStat {
-
-    @Comment("스텟 명")
-    private String statName;
-
-    @Comment("스텟 값")
-    private String statValue;
-
-
+public class Title {
+    private String titleName;
+    private String titleIcon;
+    private String titleDescription;
+    private OffsetDateTime dateExpire;
+    private OffsetDateTime dateOptionExpire;
 }

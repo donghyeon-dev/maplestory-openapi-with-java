@@ -1,9 +1,7 @@
 package com.autocat.nexonopenapi.dto.inner;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
-import org.hibernate.annotations.Comment;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
@@ -18,14 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
-@JsonRootName("final_stat")
-public class FinalStat {
+@JsonRootName("ability_info")
+public class AbilityInfo {
 
-    @Comment("스텟 명")
-    private String statName;
+    String abilityNo;
 
-    @Comment("스텟 값")
-    private String statValue;
+    String abilityGrade;
 
-
+    String abilityValue;
 }
