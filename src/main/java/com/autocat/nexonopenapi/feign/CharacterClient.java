@@ -1,9 +1,6 @@
 package com.autocat.nexonopenapi.feign;
 
-import com.autocat.nexonopenapi.dto.CharacterBasic;
-import com.autocat.nexonopenapi.dto.CharacterStat;
-import com.autocat.nexonopenapi.dto.CharacterPopularity;
-import com.autocat.nexonopenapi.dto.ClientBasicRequest;
+import com.autocat.nexonopenapi.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,4 +28,8 @@ public interface CharacterClient {
     CharacterStat getCharacterStat(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);
 
+    // 캐릭터 하이퍼스탯 정보 가져오기
+    @GetMapping("/maplestory/v1/character/hyper-stat")
+    CharacterHyperStat getCharacterHyperStat(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
 }

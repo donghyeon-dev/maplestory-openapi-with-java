@@ -1,8 +1,8 @@
 package com.autocat.nexonopenapi.dto;
 
 
+import com.autocat.nexonopenapi.dto.inner.FinalStat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;

@@ -32,6 +32,9 @@ public class CharacterService {
         CharacterStat characterStatDto = characterClient.getCharacterStat(basicRequestDto.getOcid(),
                 LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
 
+        CharacterHyperStat characterHyperStat = characterClient.getCharacterHyperStat(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
         return characterBasicDto;
     }
 }
