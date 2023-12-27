@@ -20,7 +20,7 @@ public class CharacterService {
     private final CharacterClient characterClient;
 
 
-    public CharacterBasic getCharacterBasicInfo(CharacterOcidRequest request) {
+    public CharacterOverview getCharacterBasicInfo(CharacterOcidRequest request) {
         ClientBasicRequest basicRequestDto = characterClient.getCharacterOcid(request.getCharacterName());
 
         CharacterBasic characterBasicDto = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
@@ -69,6 +69,40 @@ public class CharacterService {
         CharacterLinkSkill characterLinkSkill = characterClient.getCharacterLinkSkill(basicRequestDto.getOcid(),
                 LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
 
-        return characterBasicDto;
+        CharacterVMatrix characterVMatrix = characterClient.getCharacterVMatrix(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        CharacterHexaMatrix characterHexaMatrix = characterClient.getCharacterHexaMatrix(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        CharacterHexaMatrixStat characterHexaMatrixStat = characterClient.getCharacterHexaMatrixStat(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        CharacterDojang characterDojang = characterClient.getCharacterDojang(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        CharacterOverview characterOverview = CharacterOverview.builder()
+                .characterBasic(characterBasicDto)
+                .characterPopularity(characterPopularityDto)
+                .characterStat(characterStatDto)
+                .characterHyperStat(characterHyperStat)
+                .characterPropensity(characterPropensity)
+                .characterAbility(characterAbility)
+                .characterItemEquipment(characterItemEquipment)
+                .characterCashItemEquipment(characterCashItemEquipment)
+                .characterSymbolEquipment(characterSymbolEquipment)
+                .characterSetEffect(characterSetEffect)
+                .characterBeautyEquipment(characterBeautyEquipment)
+                .characterAndroidEquipment(characterAndroidEquipment)
+                .characterPetEquipment(characterPetEquipment)
+                .characterSkill(characterSkill)
+                .characterLinkSkill(characterLinkSkill)
+                .characterVMatrix(characterVMatrix)
+                .characterHexaMatrix(characterHexaMatrix)
+                .characterHexaMatrixStat(characterHexaMatrixStat)
+                .characterDojang(characterDojang)
+                .build();
+
+        return characterOverview;
     }
 }

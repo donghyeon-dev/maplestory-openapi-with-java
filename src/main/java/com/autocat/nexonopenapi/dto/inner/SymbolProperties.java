@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonRootName("symbol_properties")
 public class SymbolProperties {
 
     private String symbolName;

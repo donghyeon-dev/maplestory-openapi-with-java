@@ -19,13 +19,35 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import java.util.Collections;
 
-@Configuration
+/**
+ * FeignConfig는 Feign Client의 설정을 담당하는 클래스로 아래와 같은 역할을 합니다.
+ * 1. FeignClient를 통해 받아온 Response에 대해서 snake_case를 camelCase로 변환하는 역할을 합니다.
+ * 2. FeignClient를 통해 요청을 보낼 때, Header에 API Key를 담아 보내는 역할을 합니다.
+ */
 public class FeignConfig {
 
     @Bean
-    public ObjectMapper feignObjectMapper() {
-        return new ObjectMapper().registerModule(new JavaTimeModule()).setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-//        return new ObjectMapper().registerModule(new JavaTimeModule()).setPropertyNamingStrategy(new CustomSnakeCaseStrategy());
+    public Encoder feignEncoder() {
+        return new SpringEncoder(feignHttpMessageConverter());
+    }
+
+    @Bean
+    public Decoder feignDecoder() {
+        return new SpringDecoder(feignHttpMessageConverter());
+    }
+
+    @Bean
+    public ObjectFactory<HttpMessageConverters> feignHttpMessageConverter() {
+        final HttpMessageConverters httpMessageConverters = new HttpMessageConverters(new CustomMappingJackson2HttpMessageConverter());
+        return () -> httpMessageConverters;
+    }
+
+    // Custom Converter for Snake Case to Camel Case
+    private static class CustomMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
+
+        public CustomMappingJackson2HttpMessageConverter() {
+            getObjectMapper().registerModule(new JavaTimeModule()).setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+        }
     }
 
     @Bean

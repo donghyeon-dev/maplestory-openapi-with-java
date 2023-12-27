@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonRootName("set_effect")
 public class SetEffect {
     private String setName;
 

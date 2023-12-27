@@ -16,9 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-@JsonRootName("final_stat")
 public class FinalStat {
 
     @Comment("스텟 명")

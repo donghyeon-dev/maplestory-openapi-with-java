@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-@JsonRootName("ability_info")
 public class AbilityInfo {
 
     String abilityNo;

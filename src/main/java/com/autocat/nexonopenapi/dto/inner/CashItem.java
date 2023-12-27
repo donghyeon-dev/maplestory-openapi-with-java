@@ -19,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonRootName("cash_item")
 public class CashItem {
 
     private String cashItemEquipmentPart;

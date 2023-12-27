@@ -1,12 +1,15 @@
-package com.autocat.nexonopenapi.dto.inner;
+package com.autocat.nexonopenapi.dto;
 
+import com.autocat.nexonopenapi.dto.inner.HexaCoreEquipment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
+import java.time.OffsetDateTime;
+import java.util.List;
 
 
 /**
@@ -16,8 +19,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SetEffectInfo {
-    private Long setCount;
+public class CharacterHexaMatrix {
 
-    private String setOption;
+    private OffsetDateTime date;
+
+    @JsonProperty("character_hexa_core_equipment")
+    private List<HexaCoreEquipment> characterHexaCoreEquipment;
 }

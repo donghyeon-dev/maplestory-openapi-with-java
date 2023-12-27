@@ -1,12 +1,13 @@
-package com.autocat.nexonopenapi.dto.inner;
+package com.autocat.nexonopenapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
+import java.time.OffsetDateTime;
 
 
 /**
@@ -16,8 +17,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SetEffectInfo {
-    private Long setCount;
+public class CharacterDojang {
 
-    private String setOption;
+    private OffsetDateTime date;
+    private String characterClass;
+    private String worldName;
+
+    private Long dojangBestFloor;
+
+    private OffsetDateTime dateDojangRecord;
+
+    private Long dojangBestTime;
+
 }

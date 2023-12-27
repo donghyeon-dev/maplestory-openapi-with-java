@@ -191,4 +191,26 @@ public interface CharacterClient {
     @GetMapping("/maplestory/v1/character/link-skill")
     CharacterLinkSkill getCharacterLinkSkill(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);
+
+    /**
+     * 캐릭터의 V매트릭스 슬롯 정보와 장착한 V코어 정보를 가져옵니다.
+     * @param ocid 캐릭터의 OCID
+     * @param date 정보를 얻고자 하는 날짜
+     * @return 해당 날짜의 캐릭터 V매트릭스 정보를 포함한 CharacterVMatrix 객체를 반환합니다.
+     */
+    @GetMapping("/maplestory/v1/character/vmatrix")
+    CharacterVMatrix getCharacterVMatrix(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
+
+    @GetMapping("/maplestory/v1/character/hexamatrix")
+    CharacterHexaMatrix getCharacterHexaMatrix(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
+
+    @GetMapping("/maplestory/v1/character/hexamatrix-stat")
+    CharacterHexaMatrixStat getCharacterHexaMatrixStat(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
+
+    @GetMapping("/maplestory/v1/character/dojang")
+    CharacterDojang getCharacterDojang(@RequestParam(value = "ocid") String ocid
+            , @RequestParam(value = "date") String date);
 }

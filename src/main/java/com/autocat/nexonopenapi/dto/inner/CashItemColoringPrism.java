@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonRootName("cash_item_coloring_prism")
 public class CashItemColoringPrism {
 
     private String colorRange;

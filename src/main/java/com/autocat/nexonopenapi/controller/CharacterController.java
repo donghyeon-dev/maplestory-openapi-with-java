@@ -2,6 +2,7 @@ package com.autocat.nexonopenapi.controller;
 
 import com.autocat.nexonopenapi.dto.CharacterBasic;
 import com.autocat.nexonopenapi.dto.CharacterOcidRequest;
+import com.autocat.nexonopenapi.dto.CharacterOverview;
 import com.autocat.nexonopenapi.feign.CharacterClient;
 import com.autocat.nexonopenapi.service.CharacterService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class CharacterController {
      * @return
      */
     @GetMapping("/overview")
-    public CharacterBasic getCharacterBasicInfo(CharacterOcidRequest request) {
+    public CharacterOverview getCharacterBasicInfo(CharacterOcidRequest request) {
         return characterService.getCharacterBasicInfo(request);
 
     }
