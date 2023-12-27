@@ -1,7 +1,6 @@
 package com.autocat.nexonopenapi.dto.inner;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
@@ -14,13 +13,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-@JsonRootName("hyper_stat_preset_1")
-public class HyperStatPreset1 {
-
-    private String statType;
-    private Long statPoint;
-    private Long statLevel;
-    private String statIncrease;
+public class Skill {
+    private String skillName;
+    private String skillDescription;
+    private Long skillLevel;
+    private String skillEffect;
+    private String skillIcon;
 }

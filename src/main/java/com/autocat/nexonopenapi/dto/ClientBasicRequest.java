@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 @Builder
 @Data
 public class ClientBasicRequest {

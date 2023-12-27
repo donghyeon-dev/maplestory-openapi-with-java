@@ -1,13 +1,15 @@
 package com.autocat.nexonopenapi.dto;
 
+import com.autocat.nexonopenapi.dto.inner.SetEffect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.OffsetDateTime;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
-
-import java.time.OffsetDateTime;
 
 
 /**
@@ -16,13 +18,11 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-public class CharacterPopularity {
+public class CharacterSetEffect {
 
-    @Comment("조회기준일")
     private OffsetDateTime date;
 
-    @Comment("캐릭터 인기도")
-    private Long popularity;
+    @JsonProperty("set_effect")
+    private List<SetEffect> setEffect;
 }

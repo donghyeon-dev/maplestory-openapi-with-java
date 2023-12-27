@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 @Builder
 public class CharacterPropensity {
 

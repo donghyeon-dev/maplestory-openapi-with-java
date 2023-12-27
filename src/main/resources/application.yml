@@ -5,8 +5,8 @@ logging:
 spring:
   datasource:
     url: jdbc:mysql://${PUBLIC_IP:localhost}:43306/omm?serverTimezone=Asia/Seoul
-    username: ${OMM_ID}
-    password: ${OMM_PW}
+    username: omm
+    password: omm!
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:

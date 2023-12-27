@@ -1,6 +1,7 @@
 package com.autocat.nexonopenapi.dto.inner;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,13 +15,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-@JsonRootName("hyper_stat_preset_1")
-public class HyperStatPreset1 {
+@JsonRootName("set_effect_info")
+public class SetEffectInfo {
+    private Long setCount;
 
-    private String statType;
-    private Long statPoint;
-    private Long statLevel;
-    private String statIncrease;
+    private String setOption;
 }

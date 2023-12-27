@@ -14,13 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-@JsonRootName("hyper_stat_preset_1")
-public class HyperStatPreset1 {
-
-    private String statType;
-    private Long statPoint;
-    private Long statLevel;
-    private String statIncrease;
+public class CashItemOption {
+    private String optionType;
+    private String optionValue;
 }

@@ -19,7 +19,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 public class CharacterBasic {
 
@@ -27,7 +26,6 @@ public class CharacterBasic {
     private String ocid;
 
     @Comment("조회기준일(KST, 일 단위 데이토러 시, 분은 일괄 0으로 표기)")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     OffsetDateTime date;
 
     @Comment("캐릭터 명")

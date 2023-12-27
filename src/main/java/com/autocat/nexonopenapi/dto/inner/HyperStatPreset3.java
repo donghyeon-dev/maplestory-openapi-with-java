@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 @Builder
 @JsonRootName("hyper_stat_preset_3")
 public class HyperStatPreset3 {

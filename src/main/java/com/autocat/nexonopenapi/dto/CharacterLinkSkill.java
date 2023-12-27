@@ -1,13 +1,15 @@
 package com.autocat.nexonopenapi.dto;
 
+import com.autocat.nexonopenapi.dto.inner.Skill;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 
 /**
@@ -16,13 +18,17 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-public class CharacterPopularity {
+public class CharacterLinkSkill {
 
-    @Comment("조회기준일")
     private OffsetDateTime date;
 
-    @Comment("캐릭터 인기도")
-    private Long popularity;
+    private String characterClass;
+
+    @JsonProperty("character_link_skill")
+    private List<Skill> characterLinkSkill;
+
+    @JsonProperty("character_owned_link_skill")
+    private Skill characterOwnedLinkSkill;
+
 }

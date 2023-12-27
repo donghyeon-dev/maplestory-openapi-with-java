@@ -58,13 +58,15 @@ public class Equipment {
     @JsonProperty("potential_option_3")
     private String potentialOption3;
 
+    @JsonProperty("additional_potential_option_1")
     private String additionalPotentialOption1;
 
+    @JsonProperty("additional_potential_option_2")
     private String additionalPotentialOption2;
 
+    @JsonProperty("additional_potential_option_3")
     private String additionalPotentialOption3;
 
-    @JsonProperty("equipment_level_increase")
     private Long equipmentLevelIncrease;
 
     @JsonProperty("item_exceptional_option")

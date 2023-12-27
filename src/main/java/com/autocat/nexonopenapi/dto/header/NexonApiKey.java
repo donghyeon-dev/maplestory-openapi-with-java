@@ -14,7 +14,7 @@ import java.util.Optional;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 @Builder
 public class NexonApiKey {
     @JsonProperty("x-nxopen-api-key")

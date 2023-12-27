@@ -14,13 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-@JsonRootName("hyper_stat_preset_1")
-public class HyperStatPreset1 {
+public class Face {
+    private String faceName;
+    private String baseColor;
+    private String mixColor;
+    private String mixRate;
 
-    private String statType;
-    private Long statPoint;
-    private Long statLevel;
-    private String statIncrease;
 }

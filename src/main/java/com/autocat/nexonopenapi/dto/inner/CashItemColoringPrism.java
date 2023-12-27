@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
-@JsonRootName("hyper_stat_preset_1")
-public class HyperStatPreset1 {
+@JsonRootName("cash_item_coloring_prism")
+public class CashItemColoringPrism {
 
-    private String statType;
-    private Long statPoint;
-    private Long statLevel;
-    private String statIncrease;
+    private String colorRange;
+
+    private Long hue;
+    private Long saturation;
+    private Long value;
 }
