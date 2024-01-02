@@ -70,9 +70,6 @@ public class CustomPropertyNamingStrategy extends PropertyNamingStrategies.Snake
                     stringBuilder.append('_');
                 }
                 stringBuilder.append(currentChar);
-                if (i < input.length() - 1 && Character.isLetter(input.charAt(i + 1))) {
-                    stringBuilder.append('_');
-                }
             } else {
                 stringBuilder.append(currentChar);
             }
