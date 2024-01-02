@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
+
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -23,13 +23,13 @@ import java.util.List;
 @Builder
 public class CharacterItemEquipment {
 
-    @Comment("조회 기준일")
+    /** 조회 기준일 */
     OffsetDateTime date;
 
-    @Comment("캐릭터 성별")
+    /** 캐릭터 성별 */
     String characterGender;
 
-    @Comment("캐릭터 직업")
+    /** 캐릭터 직업 */
     String characterClass;
 
     @JsonProperty("item_equipment")

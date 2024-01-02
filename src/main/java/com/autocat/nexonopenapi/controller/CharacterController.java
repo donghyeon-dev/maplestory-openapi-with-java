@@ -1,6 +1,7 @@
 package com.autocat.nexonopenapi.controller;
 
 import com.autocat.nexonopenapi.dto.CharacterBasic;
+import com.autocat.nexonopenapi.dto.CharacterHyperStat;
 import com.autocat.nexonopenapi.dto.CharacterOcidRequest;
 import com.autocat.nexonopenapi.dto.CharacterOverview;
 import com.autocat.nexonopenapi.feign.CharacterClient;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CharacterController {
 
-    private final CharacterClient characterClient;
     private final CharacterService characterService;
 
     /**
@@ -27,6 +27,11 @@ public class CharacterController {
     public CharacterOverview getCharacterBasicInfo(CharacterOcidRequest request) {
         return characterService.getCharacterBasicInfo(request);
 
+    }
+
+    @GetMapping("/hyper-stat")
+    public CharacterHyperStat getCharacterHyperStat(CharacterOcidRequest request) {
+        return characterService.getCharacterHyperStat(request);
     }
 
 }

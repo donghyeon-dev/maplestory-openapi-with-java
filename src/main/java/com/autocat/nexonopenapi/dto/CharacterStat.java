@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
+
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -23,16 +23,16 @@ import java.util.List;
 @Builder
 public class CharacterStat {
 
-    @Comment("조회기준일")
+    /** 조회기준일 */
     private OffsetDateTime date;
 
-    @Comment("캐릭터 직업")
+    /** 캐릭터 직업 */
     private String characterClass;
 
-    @Comment("현재 스텟 정보")
+    /** 현재 스텟 정보 */
     List<FinalStat> finalStat;
 
-    @Comment("잔여 AP")
+    /** 잔여 AP */
     private Long remainAp;
 
 }

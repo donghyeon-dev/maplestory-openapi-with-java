@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
+
 
 import java.time.OffsetDateTime;
 
@@ -20,9 +20,9 @@ import java.time.OffsetDateTime;
 @Builder
 public class CharacterPopularity {
 
-    @Comment("조회기준일")
+    /** 조회기준일 */
     private OffsetDateTime date;
 
-    @Comment("캐릭터 인기도")
+    /** 캐릭터 인기도 */
     private Long popularity;
 }

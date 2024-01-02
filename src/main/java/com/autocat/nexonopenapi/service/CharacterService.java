@@ -2,10 +2,11 @@ package com.autocat.nexonopenapi.service;
 
 import com.autocat.nexonopenapi.dto.*;
 import com.autocat.nexonopenapi.feign.CharacterClient;
+import feign.Feign;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.openfeign.FeignClientBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class CharacterService {
 
     private final CharacterClient characterClient;
@@ -104,5 +104,14 @@ public class CharacterService {
                 .build();
 
         return characterOverview;
+    }
+
+    public CharacterHyperStat getCharacterHyperStat(CharacterOcidRequest request) {
+        ClientBasicRequest basicRequestDto = characterClient.getCharacterOcid(request.getCharacterName());
+        CharacterHyperStat characterHyperStat = characterClient.getCharacterHyperStat(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        return characterHyperStat;
+
     }
 }

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
+
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -22,15 +22,15 @@ import java.util.List;
 @Builder
 public class CharacterAbility {
 
-    @Comment("조회 기준일")
+    /** 조회 기준일 */
     OffsetDateTime date;
 
-    @Comment("어빌리티 등급")
+    /** 어빌리티 등급 */
     String abilityGrade;
 
-    @Comment("어빌리티 정보")
+    /** 어빌리티 정보 */
     List<AbilityInfo> abilityInfo;
 
-    @Comment("보유 명성치")
+    /** 보유 명성치 */
     Long remainFame;
 }

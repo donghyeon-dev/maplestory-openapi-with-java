@@ -54,16 +54,16 @@ class NexonOpenapiApplicationTests {
 
         input = "character_name";
         expectedInput = "characterName";
-        assertEquals(expectedInput, originalTranslate(input));
+        assertEquals(expectedInput, convertNameForSetter(input));
 
-        input = "additional_potential_option_1";
-        expectedInput = "additionalPotentialOption1";
-        assertEquals(expectedInput, originalTranslate(input));
+        input = "hyper_stat_preset_1";
+        expectedInput = "hyperStatPreset1";
+        assertEquals(expectedInput, convertNameForSetter(input));
 
 
-        input = "ocid";
-        expectedInput = "ocid";
-        assertEquals(expectedInput, originalTranslate(input));
+        input = "hyper_stat_preset_1_remain_point";
+        expectedInput = "hyperStatPreset1RemainPoint";
+        assertEquals(expectedInput, convertNameForSetter(input));
 
 
 
@@ -112,6 +112,56 @@ class NexonOpenapiApplicationTests {
             }
         }
         return resultLength > 0 ? result.toString() : input;
+    }
+
+    // 숫자 뒤를 대문자로 변환이 가능하게 해주는 메소드
+    public String customTranslater(String propertyName) {
+        // First, split the original name by underscore
+        String[] parts = propertyName.split("_");
+        StringBuilder camelCasePropertyName = new StringBuilder();
+
+        // Then iterate through each part
+        for (int i = 0; i < parts.length; i++) {
+            // If the part is a numeric value, directly append it to the string.
+            if (parts[i].matches("\\d+")) {
+                camelCasePropertyName.append(parts[i]);
+            } else if (i == 0) {
+                // Lower case for first word in property name
+                camelCasePropertyName.append(parts[i].toLowerCase());
+            } else {
+                // Apply Java's camelCase convention for the remaining words
+                camelCasePropertyName.append(parts[i].substring(0, 1).toUpperCase());
+                camelCasePropertyName.append(parts[i].substring(1).toLowerCase());
+            }
+        }
+
+        return camelCasePropertyName.toString();
+    }
+
+    private String convertNameForSetter(String input) {
+        StringBuilder result = new StringBuilder();
+        boolean upperCaseNextChar = false;
+
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+
+            if (ch == '_') {
+                upperCaseNextChar = true;
+            } else if (Character.isDigit(ch)) {
+                result.append(ch);
+                // if next char is a letter, we know we need to upper case it
+                upperCaseNextChar = (i < input.length() - 1) && Character.isLetter(input.charAt(i + 1));
+            } else {
+                if (upperCaseNextChar && Character.isLetter(ch)) {
+                    result.append(Character.toUpperCase(ch));
+                    upperCaseNextChar = false;  // Reset the flag after using it
+                } else {
+                    result.append(ch);
+                }
+            }
+        }
+
+        return result.toString();
     }
 
 }

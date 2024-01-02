@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
+
 
 import java.time.OffsetDateTime;
 
@@ -21,10 +21,10 @@ import java.time.OffsetDateTime;
 @Builder
 public class Equipment {
 
-    @Comment("장비 부위")
+    /** 장비 부위 */
     private String itemEquipmentPart;
 
-    @Comment("장비 슬롯 위치")
+    /** 장비 슬롯 위치 */
     private String itemEquipmentSlot;
 
     private String itemName;

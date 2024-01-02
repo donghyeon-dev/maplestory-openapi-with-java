@@ -1,13 +1,13 @@
-package com.autocat.nexonopenapi.dto.inner;
-
-import com.fasterxml.jackson.annotation.JsonRootName;
-
+package com.autocat.nexonopenapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
+
+import java.time.OffsetDateTime;
 
 
 /**
@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FinalStat {
+public class Union {
 
-    /** 스텟 명 */
-    private String statName;
+    OffsetDateTime date;
 
-    /** 스텟 값 */
-    private String statValue;
+    /** 유니온 레벨 */
+    Long unionLevel;
 
-
+    /** 유니온 등급 */
+    String unionGrade;
 }
