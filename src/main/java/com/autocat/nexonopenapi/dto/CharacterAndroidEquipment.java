@@ -29,13 +29,10 @@ public class CharacterAndroidEquipment {
     private String androidNickname;
     private String androidIcon;
     private String androidDescription;
-    @JsonProperty("android_hair")
     private Hair androidHair;
-    @JsonProperty("android_face")
     private Face androidFace;
     private String androidSkinName;
 
-    @JsonProperty("android_cash_item_equipment")
     private List<CashItem> androidCashItemEquipment;
 
     private String androidEarSensorClipFlag;

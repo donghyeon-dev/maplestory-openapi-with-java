@@ -24,9 +24,9 @@ public class CharacterVMatrix {
     private OffsetDateTime date;
     private String characterClass;
 
-    @JsonProperty("character_v_core_equipment")
+    
     private List<VCoreEquipment> characterVCoreEquipment;
 
-    @JsonProperty("character_v_matrix_remain_slot_upgrade_point")
+    
     private Long characterVMatrixRemainSlotUpgradePoint;
 }

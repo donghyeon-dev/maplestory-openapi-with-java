@@ -24,6 +24,6 @@ public class CharacterSkill {
     private String characterClass;
     private String characterSkillGrade;
 
-    @JsonProperty("character_skill")
+    
     private List<Skill> characterSkill;
 }

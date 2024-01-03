@@ -31,9 +31,7 @@ public class CashItem {
     private String cashItemLabel;
     private String basePresetItemDisableFlag;
 
-    @JsonProperty("cash_item_option")
-    private List<CashItemOption> cashItemOptionList;
+    private List<CashItemOption> cashItemOption;
 
-    @JsonProperty("cash_item_coloring_prism")
     private List<CashItemColoringPrism> cashItemColoringPrism;
 }

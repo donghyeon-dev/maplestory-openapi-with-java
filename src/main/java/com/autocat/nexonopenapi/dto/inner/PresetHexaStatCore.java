@@ -20,18 +20,18 @@ public class PresetHexaStatCore {
     private String slotId;
     private String mainStatName;
 
-    @JsonProperty("sub_stat_name_1")
+    
     private String subStatName1;
 
-    @JsonProperty("sub_stat_name_2")
+    
     private String subStatName2;
 
     private Long mainStatLevel;
 
-    @JsonProperty("sub_stat_level_1")
+    
     private Long subStatLevel1;
 
-    @JsonProperty("sub_stat_level_2")
+    
     private Long subStatLevel2;
 
     private Long statGrade;

@@ -23,6 +23,6 @@ public class CharacterSetEffect {
 
     private OffsetDateTime date;
 
-    @JsonProperty("set_effect")
+    
     private List<SetEffect> setEffect;
 }

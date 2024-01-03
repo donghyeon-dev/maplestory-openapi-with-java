@@ -23,6 +23,6 @@ public class HexaCoreEquipment {
     private Long hexaCoreLevel;
     private String hexaCoreType;
 
-    @JsonProperty("linked_skill")
+    
     private List<LinkedSkill> linkedSkill;
 }

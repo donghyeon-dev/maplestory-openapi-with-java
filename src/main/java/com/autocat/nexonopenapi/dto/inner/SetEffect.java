@@ -23,7 +23,7 @@ public class SetEffect {
 
     private Long totalSetCount;
 
-    @JsonProperty("set_effect_info")
+    
     private List<SetEffectInfo> setEffectInfo;
 
 }

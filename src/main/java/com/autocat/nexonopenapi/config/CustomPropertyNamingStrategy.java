@@ -60,20 +60,50 @@ public class CustomPropertyNamingStrategy extends PropertyNamingStrategies.Snake
 
     private String convertNameForSetter(String input) {
         StringBuilder stringBuilder = new StringBuilder();
+
+        // We need to know if the previous character was upper case.
+        boolean lastCharWasUpper = false;
+
         for (int i = 0; i < input.length(); i++) {
             char currentChar = input.charAt(i);
+
+            // If current character is an upper case letter
             if (Character.isUpperCase(currentChar)) {
-                stringBuilder.append('_');
-                stringBuilder.append(Character.toLowerCase(currentChar));
-            } else if (Character.isDigit(currentChar)) {
-                if (i > 0 && Character.isLetter(input.charAt(i - 1))) {
+
+                // If it's not the first character AND preceded by a lower case character OR a digit OR another upper case character
+                if (i > 0 && ((Character.isLowerCase(input.charAt(i - 1)) || Character.isDigit(input.charAt(i - 1))))) {
                     stringBuilder.append('_');
                 }
+
+                // If it's not the first char AND it's preceded by an upper case letter AND the next char (if it exists) is lower case
+                if (i > 0 && lastCharWasUpper && (i < input.length() - 1 && Character.isLowerCase(input.charAt(i + 1)))) {
+                    stringBuilder.append('_');
+                }
+
+                stringBuilder.append(Character.toLowerCase(currentChar));
+                lastCharWasUpper = true;
+            }
+            // If current character is a lower case letter
+            else if (Character.isLowerCase(currentChar)) {
+                // Append underscore before digit if it's preceeded by a number
+                if (i > 0 && Character.isDigit(input.charAt(i - 1))) {
+                    stringBuilder.append('_');
+                }
+
                 stringBuilder.append(currentChar);
-            } else {
+                lastCharWasUpper = false;
+            }
+            // If current character is a digit
+            else if (Character.isDigit(currentChar)) {
+                if (i > 0 && (Character.isLetter(input.charAt(i - 1)))) {
+                    stringBuilder.append('_');
+                }
+
                 stringBuilder.append(currentChar);
+                lastCharWasUpper = false;
             }
         }
+
         return stringBuilder.toString();
     }
 }

@@ -25,10 +25,8 @@ public class CharacterLinkSkill {
 
     private String characterClass;
 
-    @JsonProperty("character_link_skill")
     private List<Skill> characterLinkSkill;
 
-    @JsonProperty("character_owned_link_skill")
     private Skill characterOwnedLinkSkill;
 
 }

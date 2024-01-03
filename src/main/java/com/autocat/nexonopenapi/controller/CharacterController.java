@@ -1,9 +1,6 @@
 package com.autocat.nexonopenapi.controller;
 
-import com.autocat.nexonopenapi.dto.CharacterBasic;
-import com.autocat.nexonopenapi.dto.CharacterHyperStat;
-import com.autocat.nexonopenapi.dto.CharacterOcidRequest;
-import com.autocat.nexonopenapi.dto.CharacterOverview;
+import com.autocat.nexonopenapi.dto.*;
 import com.autocat.nexonopenapi.feign.CharacterClient;
 import com.autocat.nexonopenapi.service.CharacterService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +29,11 @@ public class CharacterController {
     @GetMapping("/hyper-stat")
     public CharacterHyperStat getCharacterHyperStat(CharacterOcidRequest request) {
         return characterService.getCharacterHyperStat(request);
+    }
+
+    @GetMapping("/v-matrix")
+    public CharacterVMatrix getCharacterVMatrix(CharacterOcidRequest request) {
+        return characterService.getCharacterVMatrix(request);
     }
 
 }

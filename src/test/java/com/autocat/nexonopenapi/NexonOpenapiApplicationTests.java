@@ -40,128 +40,150 @@ class NexonOpenapiApplicationTests {
     void 숫자가_포함된_스네이크_케이스_테스트(){
         String input = "additional_potential_option_1";
         String expectedInput = "additionalPotentialOption1";
-        assertEquals(expectedInput, translate(input));
+        assertEquals(expectedInput, convert(input));
 
         input = "character_name";
         expectedInput = "characterName";
-        assertEquals(expectedInput, translate(input));
+        assertEquals(expectedInput, convert(input));
 
         input = "ocid";
         expectedInput = "ocid";
-        assertEquals(expectedInput, translate(input));
+        assertEquals(expectedInput, convert(input));
 
         // Original Snakecase Strategy Test
 
         input = "character_name";
         expectedInput = "characterName";
-        assertEquals(expectedInput, convertNameForSetter(input));
+        assertEquals(expectedInput, convert(input));
 
         input = "hyper_stat_preset_1";
         expectedInput = "hyperStatPreset1";
-        assertEquals(expectedInput, convertNameForSetter(input));
+        assertEquals(expectedInput, convert(input));
 
 
         input = "hyper_stat_preset_1_remain_point";
         expectedInput = "hyperStatPreset1RemainPoint";
+        assertEquals(expectedInput, convert(input));
+
+        input = "v_core_type";
+        expectedInput = "vCoreType";
+        assertEquals(expectedInput, convert(input));
+
+
+
+    }
+
+    private String convert(String input) {
+        StringBuilder output = new StringBuilder();
+        boolean upperCaseNextLetter = false;
+
+        // For each character in the input string
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+
+            // If the current character is an underscore
+            if (currentChar == '_') {
+                // Upper case the next valid letter
+                upperCaseNextLetter = true;
+            } else {
+                // If the current character is a digit
+                if (Character.isDigit(currentChar)) {
+                    // Add the digit to the output
+                    output.append(currentChar);
+                    // Do not upperCase the next letter
+                    upperCaseNextLetter = false;
+                } else {
+                    // If upper case is required, change the current char to upper case
+                    if (upperCaseNextLetter) {
+                        output.append(Character.toUpperCase(currentChar));
+                        upperCaseNextLetter = false;
+                    } else {
+                        output.append(currentChar);
+                    }
+                }
+            }
+        }
+
+        return output.toString();
+    }
+
+    @Test
+    void camelCase_to_snake_case_test(){
+        String input = "vCoreName";
+        String expectedInput = "v_core_name";
+        assertEquals(expectedInput, convertNameForSetter(input));
+
+         input = "characterVCoreEquipment";
+         expectedInput = "character_v_core_equipment";
+        assertEquals(expectedInput, convertNameForSetter(input));
+
+        input = "hyperStatPreset1";
+         expectedInput = "hyper_stat_preset_1";
+        assertEquals(expectedInput, convertNameForSetter(input));
+
+        input = "hyperStatPreset1RemainPoint";
+         expectedInput = "hyper_stat_preset_1_remain_point";
+        assertEquals(expectedInput, convertNameForSetter(input));
+
+        input = "vCoreSkill1";
+         expectedInput = "v_core_skill_1";
+        assertEquals(expectedInput, convertNameForSetter(input));
+
+        input = "characterVCoreEquipment";
+         expectedInput = "character_v_core_equipment";
         assertEquals(expectedInput, convertNameForSetter(input));
 
 
 
     }
 
-    public String translate(String input) {
-        if (input == null) return null;
-
-        StringBuilder builder = new StringBuilder();
-        boolean toUpper = false;
-        for (char c : input.toCharArray()) {
-            if (c == '_') {
-                toUpper = true;
-            } else if (toUpper) {
-                builder.append(Character.toUpperCase(c));
-                toUpper = false;
-            } else {
-                builder.append(c);
-            }
-        }
-        return builder.toString();
-    }
-
-    public String originalTranslate(String input) {
-        if (input == null) return input; // garbage in, garbage out
-        int length = input.length();
-        StringBuilder result = new StringBuilder(length * 2);
-        int resultLength = 0;
-        boolean wasPrevTranslated = false;
-        for (int i = 0; i < length; i++) {
-            char c = input.charAt(i);
-            if (i > 0 || c != '_') // skip first starting underscore
-            {
-                if (Character.isUpperCase(c)) {
-                    if (!wasPrevTranslated && resultLength > 0 && result.charAt(resultLength - 1) != '_') {
-                        result.append('_');
-                        resultLength++;
-                    }
-                    c = Character.toLowerCase(c);
-                    wasPrevTranslated = true;
-                } else {
-                    wasPrevTranslated = false;
-                }
-                result.append(c);
-                resultLength++;
-            }
-        }
-        return resultLength > 0 ? result.toString() : input;
-    }
-
-    // 숫자 뒤를 대문자로 변환이 가능하게 해주는 메소드
-    public String customTranslater(String propertyName) {
-        // First, split the original name by underscore
-        String[] parts = propertyName.split("_");
-        StringBuilder camelCasePropertyName = new StringBuilder();
-
-        // Then iterate through each part
-        for (int i = 0; i < parts.length; i++) {
-            // If the part is a numeric value, directly append it to the string.
-            if (parts[i].matches("\\d+")) {
-                camelCasePropertyName.append(parts[i]);
-            } else if (i == 0) {
-                // Lower case for first word in property name
-                camelCasePropertyName.append(parts[i].toLowerCase());
-            } else {
-                // Apply Java's camelCase convention for the remaining words
-                camelCasePropertyName.append(parts[i].substring(0, 1).toUpperCase());
-                camelCasePropertyName.append(parts[i].substring(1).toLowerCase());
-            }
-        }
-
-        return camelCasePropertyName.toString();
-    }
-
     private String convertNameForSetter(String input) {
-        StringBuilder result = new StringBuilder();
-        boolean upperCaseNextChar = false;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // We need to know if the previous character was upper case.
+        boolean lastCharWasUpper = false;
 
         for (int i = 0; i < input.length(); i++) {
-            char ch = input.charAt(i);
+            char currentChar = input.charAt(i);
 
-            if (ch == '_') {
-                upperCaseNextChar = true;
-            } else if (Character.isDigit(ch)) {
-                result.append(ch);
-                // if next char is a letter, we know we need to upper case it
-                upperCaseNextChar = (i < input.length() - 1) && Character.isLetter(input.charAt(i + 1));
-            } else {
-                if (upperCaseNextChar && Character.isLetter(ch)) {
-                    result.append(Character.toUpperCase(ch));
-                    upperCaseNextChar = false;  // Reset the flag after using it
-                } else {
-                    result.append(ch);
+            // If current character is an upper case letter
+            if (Character.isUpperCase(currentChar)) {
+
+                // If it's not the first character AND preceded by a lower case character OR a digit OR another upper case character
+                if (i > 0 && ((Character.isLowerCase(input.charAt(i - 1)) || Character.isDigit(input.charAt(i - 1))))) {
+                    stringBuilder.append('_');
                 }
+
+                // If it's not the first char AND it's preceded by an upper case letter AND the next char (if it exists) is lower case
+                if (i > 0 && lastCharWasUpper && (i < input.length() - 1 && Character.isLowerCase(input.charAt(i + 1)))) {
+                    stringBuilder.append('_');
+                }
+
+                stringBuilder.append(Character.toLowerCase(currentChar));
+                lastCharWasUpper = true;
+            }
+            // If current character is a lower case letter
+            else if (Character.isLowerCase(currentChar)) {
+                // Append underscore before digit if it's preceeded by a number
+                if (i > 0 && Character.isDigit(input.charAt(i - 1))) {
+                    stringBuilder.append('_');
+                }
+
+                stringBuilder.append(currentChar);
+                lastCharWasUpper = false;
+            }
+            // If current character is a digit
+            else if (Character.isDigit(currentChar)) {
+                if (i > 0 && (Character.isLetter(input.charAt(i - 1)))) {
+                    stringBuilder.append('_');
+                }
+
+                stringBuilder.append(currentChar);
+                lastCharWasUpper = false;
             }
         }
 
-        return result.toString();
+        return stringBuilder.toString();
     }
 
 }

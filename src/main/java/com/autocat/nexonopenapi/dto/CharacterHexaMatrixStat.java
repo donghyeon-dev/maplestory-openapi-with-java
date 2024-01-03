@@ -25,9 +25,7 @@ public class CharacterHexaMatrixStat {
     private OffsetDateTime date;
     private String characterClass;
 
-    @JsonProperty("character_hexa_stat_core")
     private List<HexaStatCore> characterHexaStatCore;
 
-    @JsonProperty("preset_hexa_stat_core")
     private List<PresetHexaStatCore> presetHexaStatCore;
 }

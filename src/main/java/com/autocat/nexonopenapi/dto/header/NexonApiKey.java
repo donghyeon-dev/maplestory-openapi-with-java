@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Builder
 public class NexonApiKey {
-    @JsonProperty("x-nxopen-api-key")
+    
     @Builder.Default
     private String nxopenApiKey = Optional.ofNullable(System.getenv("NXOPEN_API_KEY")).orElseThrow(IllegalArgumentException::new);
 }

@@ -32,14 +32,11 @@ public class CharacterItemEquipment {
     /** 캐릭터 직업 */
     String characterClass;
 
-    @JsonProperty("item_equipment")
     private List<Equipment> itemEquipment;
 
     private Title title;
 
-    @JsonProperty("dragon_equipment")
     private List<Equipment> dragonEquipment;
 
-    @JsonProperty("mechanic_equipment")
     private List<Equipment> mechanicEquipment;
 }

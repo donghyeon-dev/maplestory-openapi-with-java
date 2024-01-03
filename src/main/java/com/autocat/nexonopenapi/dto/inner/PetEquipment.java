@@ -22,7 +22,7 @@ public class PetEquipment {
     private String itemIcon;
     private String itemDescription;
 
-    @JsonProperty("item_option")
+    
     private List<CashItemOption> itemOption;
 
     private Long scrollUpgrade;

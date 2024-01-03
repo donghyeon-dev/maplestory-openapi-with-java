@@ -23,6 +23,5 @@ public class CharacterHexaMatrix {
 
     private OffsetDateTime date;
 
-    @JsonProperty("character_hexa_core_equipment")
     private List<HexaCoreEquipment> characterHexaCoreEquipment;
 }

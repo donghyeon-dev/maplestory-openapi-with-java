@@ -26,21 +26,15 @@ public class CharacterCashItemEquipment {
     private String characterClass;
     private Long presetNo;
 
-    @JsonProperty("cash_item_equipment_preset_1")
-    private List<CashItem> cashItemEquipmentPreset1List;
+    private List<CashItem> cashItemEquipmentPreset1;
 
-    @JsonProperty("cash_item_equipment_preset_2")
-    private List<CashItem> cashItemEquipmentPreset2List;
+    private List<CashItem> cashItemEquipmentPreset2;
 
-    @JsonProperty("cash_item_equipment_preset_3")
-    private List<CashItem> cashItemEquipmentPreset3List;
+    private List<CashItem> cashItemEquipmentPreset3;
 
-    @JsonProperty("additional_cash_item_equipment_preset_1")
-    private List<CashItem> additionalCashItemEquipmentPreset1List;
+    private List<CashItem> additionalCashItemEquipmentPreset1;
 
-    @JsonProperty("additional_cash_item_equipment_preset_2")
-    private List<CashItem> additionalCashItemEquipmentPreset2List;
+    private List<CashItem> additionalCashItemEquipmentPreset2;
 
-    @JsonProperty("additional_cash_item_equipment_preset_3")
-    private List<CashItem> additionalCashItemEquipmentPreset3List;
+    private List<CashItem> additionalCashItemEquipmentPreset3;
 }

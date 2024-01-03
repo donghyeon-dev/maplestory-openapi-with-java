@@ -114,4 +114,13 @@ public class CharacterService {
         return characterHyperStat;
 
     }
+
+    public CharacterVMatrix getCharacterVMatrix(CharacterOcidRequest request) {
+        ClientBasicRequest basicRequestDto = characterClient.getCharacterOcid(request.getCharacterName());
+        CharacterVMatrix characterVMatrix = characterClient.getCharacterVMatrix(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        return characterVMatrix;
+
+    }
 }
