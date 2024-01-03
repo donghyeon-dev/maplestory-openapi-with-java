@@ -168,6 +168,20 @@ public class CharacterService {
 
 
 
+        ChracterExperienceChanges.builder()
+                .currentCharacterExp(characterBasicDay7.getCharacterExp())
+                .currentCharacterLevel(characterBasicDay7.getCharacterLevel())
+                .currentChracterExpRate(characterBasicDay7.getCharacterExpRate())
+                .oldestCharacterExp(characterBasicDay1.getCharacterExp())
+                .oldestCharacterLevel(characterBasicDay1.getCharacterLevel())
+                .oldestCharacterExpRate(characterBasicDay1.getCharacterExpRate())
+//                .averageGrownPerDay() // Todo : 평균일간성장값을 알기 위해 일간성장값이 필요(배열 순서를 거꾸로 for문, i.getExp - (i-1).getExp)
+//                .averageGrownRatePerDay() // Todo : 평균일간성장율을 알기 위해 일간성장율이 필요
+                .build();
+
+
+
+
         return ChracterExperienceChanges.builder().build();
     }
 }
