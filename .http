@@ -1,0 +1,12 @@
+### GET character overview
+GET http://localhost:8080/character/overview?characterName=수호
+
+### GET character hyper-stat
+GET http://localhost:8080/character/hyper-stat?characterName=수호
+
+
+### GET character v-matrix
+GET http://localhost:8080/character/v-matrix?characterName=수호
+
+### GET Character Union Overview
+GET http://localhost:8080/union/overview?characterName=수호
