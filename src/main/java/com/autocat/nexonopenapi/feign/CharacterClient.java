@@ -204,14 +204,35 @@ public interface CharacterClient {
     CharacterVMatrix getCharacterVMatrix(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);
 
+    /**
+     * 캐릭터의 헥사매트릭스 정보를 가져옵니다.
+     *
+     * @param ocid 캐릭터의 OCID
+     * @param date 정보를 얻고자 하는 날짜
+     * @return 해당 날짜의 캐릭터 헥사매트릭스 정보를 포함한 CharacterHexaMatrix 객체를 반환합니다.
+     */
     @GetMapping("/maplestory/v1/character/hexamatrix")
     CharacterHexaMatrix getCharacterHexaMatrix(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);
 
+    /**
+     * 캐릭터의 헥사매트릭스 스텟 정보를 가져옵니다.
+     *
+     * @param ocid 캐릭터의 OCID
+     * @param date 정보를 얻고자 하는 날짜
+     * @return 해당 날짜의 캐릭터 헥사매트릭스 스텟 정보를 포함한 CharacterHexaMatrixStat 객체를 반환합니다.
+     */
     @GetMapping("/maplestory/v1/character/hexamatrix-stat")
     CharacterHexaMatrixStat getCharacterHexaMatrixStat(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);
 
+    /**
+     * 캐릭터의 무릉도장 정보를 가져옵니다.
+     *
+     * @param ocid 캐릭터의 OCID
+     * @param date 정보를 얻고자 하는 날짜
+     * @return 해당 날짜의 캐릭터 무릉도장 정보를 포함한 CharacterDojang 객체를 반환합니다.
+     */
     @GetMapping("/maplestory/v1/character/dojang")
     CharacterDojang getCharacterDojang(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);

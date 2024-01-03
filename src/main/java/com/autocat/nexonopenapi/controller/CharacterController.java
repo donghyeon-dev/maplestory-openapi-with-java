@@ -31,9 +31,21 @@ public class CharacterController {
         return characterService.getCharacterHyperStat(request);
     }
 
+    @GetMapping("/basic")
+    public CharacterBasic getCharacterBasic(CharacterOcidRequest request) {
+        return characterService.getCharacterBasic(request);
+    }
+
     @GetMapping("/v-matrix")
     public CharacterVMatrix getCharacterVMatrix(CharacterOcidRequest request) {
         return characterService.getCharacterVMatrix(request);
     }
+
+    @GetMapping("/experience-per-day-of-week")
+    public ChracterExperienceChanges getCharacterExperienceChanges(CharacterOcidRequest request) {
+        return characterService.getCharacterExperienceChanges(request);
+    }
+
+
 
 }

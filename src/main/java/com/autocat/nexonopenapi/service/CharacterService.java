@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalDouble;
 
 
 @Slf4j
@@ -122,5 +125,49 @@ public class CharacterService {
 
         return characterVMatrix;
 
+    }
+
+    public CharacterBasic getCharacterBasic(CharacterOcidRequest request) {
+        ClientBasicRequest basicRequestDto = characterClient.getCharacterOcid(request.getCharacterName());
+        CharacterBasic characterBasicDto = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        return characterBasicDto;
+    }
+
+
+    public ChracterExperienceChanges getCharacterExperienceChanges(CharacterOcidRequest request) {
+        ClientBasicRequest basicRequestDto = characterClient.getCharacterOcid(request.getCharacterName());
+        CharacterBasic characterBasicDay1 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+        CharacterBasic characterBasicDay2 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+        CharacterBasic characterBasicDay3 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(3).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+        CharacterBasic characterBasicDay4 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(4).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+        CharacterBasic characterBasicDay5 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(5).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+        CharacterBasic characterBasicDay6 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(6).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+        CharacterBasic characterBasicDay7 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                LocalDate.now().minusDays(7).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+
+        List<CharacterBasic> characterBasicList = new ArrayList<>();
+
+        for(int i =1; i <= 7; i++){
+            CharacterBasic characterBasic = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
+                    LocalDate.now().minusDays(i).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
+            characterBasicList.add(characterBasic);
+        };
+
+        OptionalDouble averageGrownPerDay = characterBasicList.stream()
+                .mapToInt(c -> c.getCharacterExp().intValue()).average();
+        OptionalDouble averageGrownRatePerDay = characterBasicList.stream()
+                .mapToDouble(c -> Double.parseDouble(c.getCharacterExpRate())).average();
+
+
+
+        return ChracterExperienceChanges.builder().build();
     }
 }
