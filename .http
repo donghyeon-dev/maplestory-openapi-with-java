@@ -18,3 +18,8 @@ GET http://localhost:8080/character/experience-per-day-of-week?characterName=수
 #     UNION
 ### GET Character Union Overview
 GET http://localhost:8080/union/overview?characterName=수호
+
+
+#     GUILD
+### GET Guild Overview
+GET http://localhost:8080/guild/overview?guildName=지존&worldName=크로아

@@ -1,4 +1,4 @@
-package com.autocat.nexonopenapi.dto;
+package com.autocat.nexonopenapi.dto.enums;
 
 public enum CharacterSkillGrade {
     ZERO("0"),
