@@ -50,7 +50,7 @@ public class CharacterBasic {
     Long characterExp;
 
     /** 현재 레벨에서 보유한 경험치 퍼센트 */
-    String characterExpRate;
+    Double characterExpRate;
 
     /** 캐릭터 소속 길드 명 */
     String characterGuildName;

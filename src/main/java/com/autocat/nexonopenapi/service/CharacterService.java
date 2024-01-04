@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
 
@@ -138,50 +139,42 @@ public class CharacterService {
 
     public ChracterExperienceChanges getCharacterExperienceChanges(CharacterOcidRequest request) {
         ClientBasicRequest basicRequestDto = characterClient.getCharacterOcid(request.getCharacterName());
-        CharacterBasic characterBasicDay1 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                LocalDate.now().minusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
-        CharacterBasic characterBasicDay2 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                LocalDate.now().minusDays(2).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
-        CharacterBasic characterBasicDay3 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                LocalDate.now().minusDays(3).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
-        CharacterBasic characterBasicDay4 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                LocalDate.now().minusDays(4).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
-        CharacterBasic characterBasicDay5 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                LocalDate.now().minusDays(5).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
-        CharacterBasic characterBasicDay6 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                LocalDate.now().minusDays(6).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
-        CharacterBasic characterBasicDay7 = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                LocalDate.now().minusDays(7).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
 
         List<CharacterBasic> characterBasicList = new ArrayList<>();
-
         for(int i =1; i <= 7; i++){
             CharacterBasic characterBasic = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
                     LocalDate.now().minusDays(i).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
             characterBasicList.add(characterBasic);
         };
 
-        OptionalDouble averageGrownPerDay = characterBasicList.stream()
-                .mapToInt(c -> c.getCharacterExp().intValue()).average();
-        OptionalDouble averageGrownRatePerDay = characterBasicList.stream()
-                .mapToDouble(c -> Double.parseDouble(c.getCharacterExpRate())).average();
+        characterBasicList = characterBasicList.stream()
+                .sorted(Comparator.comparing(CharacterBasic::getCharacterLevel).reversed()
+                        .thenComparing(CharacterBasic::getCharacterExp).reversed())
+                .toList();
 
+        List<Long> characterExpList = new ArrayList<>();
+        List<Double> characterExpRateList = new ArrayList<>();
+        for(int i = 0; i  < characterBasicList.size()-1; i++){
+            characterExpList.add(characterBasicList.get(i).getCharacterExp() - characterBasicList.get(i+1).getCharacterExp());
+            characterExpRateList.add(characterBasicList.get(i).getCharacterExpRate() - characterBasicList.get(i+1).getCharacterExpRate());
 
+        }
 
-        ChracterExperienceChanges.builder()
-                .currentCharacterExp(characterBasicDay7.getCharacterExp())
-                .currentCharacterLevel(characterBasicDay7.getCharacterLevel())
-                .currentChracterExpRate(characterBasicDay7.getCharacterExpRate())
-                .oldestCharacterExp(characterBasicDay1.getCharacterExp())
-                .oldestCharacterLevel(characterBasicDay1.getCharacterLevel())
-                .oldestCharacterExpRate(characterBasicDay1.getCharacterExpRate())
-//                .averageGrownPerDay() // Todo : 평균일간성장값을 알기 위해 일간성장값이 필요(배열 순서를 거꾸로 for문, i.getExp - (i-1).getExp)
-//                .averageGrownRatePerDay() // Todo : 평균일간성장율을 알기 위해 일간성장율이 필요
+        Double averageGrownPerDay = characterExpList.stream().mapToLong(Long::longValue).average().orElseGet(() -> Double.NaN);
+        Double averageGrownRatePerDay = characterExpRateList.stream().mapToDouble(Double::doubleValue).average().orElseGet(() -> Double.NaN);
+
+        return ChracterExperienceChanges.builder()
+                .characterClass(characterBasicList.get(0).getCharacterClass())
+                .characterName(characterBasicList.get(0).getCharacterName())
+                .worldName(characterBasicList.get(0).getWorldName())
+                .currentCharacterExp(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterExp).max().orElseGet(() -> 0))
+                .currentCharacterLevel(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterLevel).max().orElseGet(() -> 0))
+                .currentChracterExpRate(characterBasicList.stream().mapToDouble(CharacterBasic::getCharacterExp).max().orElseGet(() -> Double.NaN))
+                .oldestCharacterExp(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterExp).min().orElseGet(() -> 0))
+                .oldestCharacterLevel(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterLevel).min().orElseGet(() -> 0))
+                .oldestCharacterExpRate(characterBasicList.stream().mapToDouble(CharacterBasic::getCharacterExp).min().orElseGet(() -> Double.NaN))
+                .averageGrownPerDay(averageGrownPerDay.longValue())
+                .averageGrownRatePerDay(averageGrownRatePerDay)
                 .build();
-
-
-
-
-        return ChracterExperienceChanges.builder().build();
     }
 }

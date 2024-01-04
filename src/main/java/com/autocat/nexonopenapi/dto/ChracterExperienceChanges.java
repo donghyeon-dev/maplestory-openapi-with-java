@@ -16,19 +16,36 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ChracterExperienceChanges {
 
+    /** 캐릭터명 */
+    private String characterName;
+
+    /** 캐릭터 직업 */
+    private String characterClass;
+
+    /** 월드명 */
+    private String worldName;
+
+    /** 현재 캐릭터 레벨 */
     private Long currentCharacterLevel;
 
+    /** 현재 캐릭터 경험치 */
     private Long currentCharacterExp;
 
-    private String currentChracterExpRate;
+    /** 현재 캐릭터 경험치 퍼센트 */
+    private Double currentChracterExpRate;
 
+    /** 7일전 캐릭터 레벨 */
     private Long oldestCharacterLevel;
 
+    /** 7일전 캐릭터 경험치 */
     private Long oldestCharacterExp;
 
-    private String oldestCharacterExpRate;
+    /** 7일전 캐릭터 경험치 퍼센트 */
+    private Double oldestCharacterExpRate;
 
-    private Double averageGrownPerDay;
+    /** 일일평균경험치획득량 */
+    private Long averageGrownPerDay;
 
+    /** 일일평균경험치획득률 */
     private Double averageGrownRatePerDay;
 }
