@@ -1,0 +1,15 @@
+package com.autocat.maplestory.openapi.nexon;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@EnableFeignClients
+@SpringBootApplication
+public class MaplestoryOpenapiApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MaplestoryOpenapiApplication.class, args);
+    }
+
+}
