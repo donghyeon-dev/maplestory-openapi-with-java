@@ -1,6 +1,5 @@
 package com.autocat.nexonopenapi.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
@@ -32,7 +31,7 @@ public class ChracterExperienceChanges {
     private Long currentCharacterExp;
 
     /** 현재 캐릭터 경험치 퍼센트 */
-    private Double currentChracterExpRate;
+    private Double currentCharacterExpRate;
 
     /** 7일전 캐릭터 레벨 */
     private Long oldestCharacterLevel;
@@ -48,4 +47,11 @@ public class ChracterExperienceChanges {
 
     /** 일일평균경험치획득률 */
     private Double averageGrownRatePerDay;
+
+    /** 일일평균몬스터킬수 */
+    private Double averageMonsterKillPerDay;
+
+    /** 대상 몬스터 이름 */
+    private String monsterName;
+
 }

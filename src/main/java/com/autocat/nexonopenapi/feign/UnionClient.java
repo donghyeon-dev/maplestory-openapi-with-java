@@ -27,6 +27,12 @@ public interface UnionClient {
     Union getUnion(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);
 
+    /**
+     * 캐릭터의 유니온 공격대 정보를 조회합니다.
+     * @param ocid - 캐릭터의 OCID
+     * @param date - 정보를 얻고자 하는 날짜
+     * @return 해당 날짜의 캐릭터 유니온 공격대 정보를 포함한 UnionRaider 객체를 반환합니다.
+     */
     @GetMapping("/maplestory/v1/user/union-raider")
     UnionRaider getUnionRaider(@RequestParam(value = "ocid") String ocid
             , @RequestParam(value = "date") String date);

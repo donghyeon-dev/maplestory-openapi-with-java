@@ -1,11 +1,10 @@
 package com.autocat.nexonopenapi.service;
 
 import com.autocat.nexonopenapi.dto.*;
+import com.autocat.nexonopenapi.dto.enums.MonsterCapByLevel;
 import com.autocat.nexonopenapi.feign.CharacterClient;
-import feign.Feign;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.openfeign.FeignClientBuilder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.OptionalDouble;
+import java.util.stream.IntStream;
 
 
 @Slf4j
@@ -138,43 +137,57 @@ public class CharacterService {
 
 
     public ChracterExperienceChanges getCharacterExperienceChanges(CharacterOcidRequest request) {
-        ClientBasicRequest basicRequestDto = characterClient.getCharacterOcid(request.getCharacterName());
-
-        List<CharacterBasic> characterBasicList = new ArrayList<>();
-        for(int i =1; i <= 7; i++){
-            CharacterBasic characterBasic = characterClient.getCharacterBasic(basicRequestDto.getOcid(),
-                    LocalDate.now().minusDays(i).format(DateTimeFormatter.ISO_LOCAL_DATE).toString());
-            characterBasicList.add(characterBasic);
-        };
-
-        characterBasicList = characterBasicList.stream()
-                .sorted(Comparator.comparing(CharacterBasic::getCharacterLevel).reversed()
-                        .thenComparing(CharacterBasic::getCharacterExp).reversed())
-                .toList();
-
+        ClientBasicRequest characterRequest = characterClient.getCharacterOcid(request.getCharacterName());
+        List<CharacterBasic> characterBasicList = fetchSevenDaysCharacterInfo(characterRequest.getOcid());
         List<Long> characterExpList = new ArrayList<>();
         List<Double> characterExpRateList = new ArrayList<>();
-        for(int i = 0; i  < characterBasicList.size()-1; i++){
-            characterExpList.add(characterBasicList.get(i).getCharacterExp() - characterBasicList.get(i+1).getCharacterExp());
-            characterExpRateList.add(characterBasicList.get(i).getCharacterExpRate() - characterBasicList.get(i+1).getCharacterExpRate());
+        calcCharacterExperienceAndRate(characterBasicList, characterExpList, characterExpRateList);
 
+        Double averageGrownRatePerDay = characterExpRateList.stream().mapToDouble(Double::doubleValue).average().orElseGet(() -> Double.NaN);
+        Double averageGrownPerDay = characterExpList.stream().mapToLong(Long::longValue).average().orElseGet(() -> Double.NaN);
+        MonsterCapByLevel monsterCap = MonsterCapByLevel.getMonsterEnumByLevel(characterBasicList.get(0).getCharacterLevel().intValue());
+
+        Double averageMonsterKillPerDay = Double.NaN;
+        String monsterName = "";
+        if (monsterCap != null) {
+            averageMonsterKillPerDay = averageGrownPerDay / monsterCap.getExperience();
+            monsterName = monsterCap.getMonsterName();
         }
 
-        Double averageGrownPerDay = characterExpList.stream().mapToLong(Long::longValue).average().orElseGet(() -> Double.NaN);
-        Double averageGrownRatePerDay = characterExpRateList.stream().mapToDouble(Double::doubleValue).average().orElseGet(() -> Double.NaN);
+        CharacterBasic firstCharacter = characterBasicList.get(0);
+        return buildCharacterExperienceChanges(characterBasicList, firstCharacter, averageGrownPerDay, averageGrownRatePerDay, averageMonsterKillPerDay, monsterName);
+    }
 
+    private List<CharacterBasic> fetchSevenDaysCharacterInfo(String ocid) {
+        return IntStream.rangeClosed(1, 7)
+                .mapToObj(i -> characterClient.getCharacterBasic(ocid, LocalDate.now().minusDays(i).format(DateTimeFormatter.ISO_LOCAL_DATE)))
+                .sorted(Comparator.comparing(CharacterBasic::getCharacterLevel)
+                        .thenComparing(CharacterBasic::getCharacterExp).reversed())
+                .toList();
+    }
+
+    private void calcCharacterExperienceAndRate(List<CharacterBasic> characterBasicList, List<Long> characterExpList, List<Double> characterExpRateList) {
+        for (int i = 0; i < characterBasicList.size() - 1; i++) {
+            characterExpList.add(characterBasicList.get(i).getCharacterExp() - characterBasicList.get(i + 1).getCharacterExp());
+            characterExpRateList.add(characterBasicList.get(i).getCharacterExpRate() - characterBasicList.get(i + 1).getCharacterExpRate());
+        }
+    }
+
+    private ChracterExperienceChanges buildCharacterExperienceChanges(List<CharacterBasic> characterBasicList, CharacterBasic firstCharacter, Double averageGrownPerDay, Double averageGrownRatePerDay, Double averageMonsterKillPerDay, String monsterName) {
         return ChracterExperienceChanges.builder()
-                .characterClass(characterBasicList.get(0).getCharacterClass())
-                .characterName(characterBasicList.get(0).getCharacterName())
-                .worldName(characterBasicList.get(0).getWorldName())
-                .currentCharacterExp(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterExp).max().orElseGet(() -> 0))
-                .currentCharacterLevel(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterLevel).max().orElseGet(() -> 0))
-                .currentChracterExpRate(characterBasicList.stream().mapToDouble(CharacterBasic::getCharacterExp).max().orElseGet(() -> Double.NaN))
-                .oldestCharacterExp(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterExp).min().orElseGet(() -> 0))
-                .oldestCharacterLevel(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterLevel).min().orElseGet(() -> 0))
-                .oldestCharacterExpRate(characterBasicList.stream().mapToDouble(CharacterBasic::getCharacterExp).min().orElseGet(() -> Double.NaN))
+                .characterClass(firstCharacter.getCharacterClass())
+                .characterName(firstCharacter.getCharacterName())
+                .worldName(firstCharacter.getWorldName())
+                .currentCharacterExp(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterExp).max().orElse(0))
+                .currentCharacterLevel(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterLevel).max().orElse(0))
+                .currentCharacterExpRate(characterBasicList.stream().mapToDouble(CharacterBasic::getCharacterExp).max().orElse(Double.NaN))
+                .oldestCharacterExp(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterExp).min().orElse(0))
+                .oldestCharacterLevel(characterBasicList.stream().mapToLong(CharacterBasic::getCharacterLevel).min().orElse(0))
+                .oldestCharacterExpRate(characterBasicList.stream().mapToDouble(CharacterBasic::getCharacterExp).min().orElse(Double.NaN))
                 .averageGrownPerDay(averageGrownPerDay.longValue())
                 .averageGrownRatePerDay(averageGrownRatePerDay)
+                .averageMonsterKillPerDay(averageMonsterKillPerDay)
+                .monsterName(monsterName)
                 .build();
     }
 }
