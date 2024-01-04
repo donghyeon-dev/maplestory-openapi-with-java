@@ -9,7 +9,7 @@
 - [ ] 레벨구간 별 대상 몬스터에 대한 실질적 검증 필요
 
 # Done
-- [x] Convert MaplestoryAPI JSON's snake-case to camel-case 
+- [x] Java naming 전략에 맞게 snake-case to camelCase 변환
 - [x] Character API
 - [x] Union API
 - [x] Guild API
