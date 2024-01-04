@@ -30,10 +30,10 @@ public interface GuildClient {
             , @RequestParam(value = "world_name") String worldName);
 
     /**
-     * 캐릭터의 유니온 공격대 정보를 조회합니다.
-     * @param ocid - 캐릭터의 OCID
-     * @param date - 정보를 얻고자 하는 날짜
-     * @return 해당 날짜의 캐릭터 유니온 공격대 정보를 포함한 UnionRaider 객체를 반환합니다.
+     * 길드 정보를 조회합니다.
+     * @param oguildId 길드 식별자 - oguild_id 는 {@link GuildClient#fetchGuildId(String, String)} 메소드를 통해 조회할 수 있습니다.
+     * @param date 조회 날짜
+     * @return 길드 정보를 포함한 Guild 객체를 반환합니다.
      */
     @GetMapping("/maplestory/v1/guild/basic")
     GuildBasic fetchGuildBasic(@RequestParam(value = "oguild_id") String oguildId

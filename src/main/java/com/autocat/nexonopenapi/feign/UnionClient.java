@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * CharacterClient는 지정된 URL로 GET 요청을 보내는 Feign 클라이언트 인터페이스입니다.
- * 서버에서 다양한 형태의 캐릭터 데이터를 가져오는 메소드가 포함되어 있습니다.
+ * UnionClient는 지정된 URL로 GET 요청을 보내는 Feign 클라이언트 인터페이스입니다.
+ * 서버에서 다양한 캐릭터의 유니온 데이터를 가져오는 메소드가 포함되어 있습니다.
  *
  * @author donghyeon.park
  */
