@@ -32,9 +32,15 @@ function App() {
         return statValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    const onCharacterInputKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            fetchCharacterData();
+        }
+    }
+
     const fetchCharacterData = async () => {
         if(characterName === "") {
-            console.log("Character Name is empty");
+            alert("Character Name is empty");
             return;
 
         }
@@ -55,6 +61,7 @@ function App() {
                 setLoading(false);
             })
             .catch((error) => {
+                alert(error.response.data.message);
                 console.log("Error : " + error);
                 setLoading(false);
             })
@@ -65,14 +72,15 @@ function App() {
 
     return (
         <div className="bg-[#31314e] min-h-screen flex justify-center items-center">
-            <div className="max-w-sm">
+            <div className="sm:w-2/3">
                 <div className="flex justify-center mt-4 space-x-2">
                     <input
                         type="text"
                         value={characterName}
                         onChange={(e) => setCharacterName(e.target.value)}
-                        placeholder="Character Name"
-                        className="py-2 px-4 rounded border-2 border-[#d77355] focus:outline-none focus:border-[#b56248]"
+                        onKeyDown={(e) => onCharacterInputKeyPress(e)}
+                        placeholder="캐릭터명을 입력하세요"
+                        className=" py-2 px-4 rounded border-2 border-[#d77355] focus:outline-none focus:border-[#b56248]"
                     />
                     <button
                         onClick={fetchCharacterData}
@@ -90,29 +98,48 @@ function App() {
 
                             <p className="text-white text-sm">{characterData.characterClass}</p>
                             <p className="text-white text-sm">{characterData.worldName}</p>
+                            <p className="text-white text-sm">유니온 3131</p>
+                            <p className="text-white text-sm">무릉도장 81층</p>
                         </div>
-                        <img src={characterData.characterImage} alt="https://placehold.co/250x250"
-                             className="square-full"/>
+                        <img src={characterData.characterImage} alt="https://placehold.co/100x100"
+                             className="square-full w-28 h-28"/>
+                        <div>
+                            <p className="text-[#d77355] font-bold">CHARACTER INFO</p>
+                            <p className="text-white text-sm">Lv. {characterData.characterLevel}</p>
+                            <p className="text-white text-sm">{characterData.characterClass}</p>
+                            <p className="text-white text-sm">{characterData.worldName}</p>
+                            <p className="text-white text-sm">유니온 3131</p>
+                            <p className="text-white text-sm">무릉도장 81층</p>
+                        </div>
                         <p className="text-white font-bold text-xl">{characterData.characterName}</p>
                     </div>
                     <div className="flex justify-around my-3">
-                    <button className="bg-[#d77355] text-white py-1 px-3 rounded">DETAIL</button>
+                        <button className="bg-[#d77355] text-white py-1 px-3 rounded">DETAIL</button>
                         <button className="bg-[#647c64] text-white py-1 px-3 rounded">STAT</button>
                     </div>
                     <div className="bg-[#d6d4e0] p-2">
                         <div className="bg-white p-3 rounded">
-                            {/*<p className="text-[#55415f] text-3xl font-bold">{characterData.combatPower}</p>*/}
-                            {characterData.stats.map((stat, index) => (
-                                <div key={`div-${index}`} className="flex justify-between my-2">
-                                    <span className="text-[#646964]" key={`name-${index}`}>{stat.statName}</span>
-                                    <span className="text-[#55415f]" key={`value-${index}`}>{stat.statValue}</span>
-                                </div>
-                            ))}
+                            {/*<p className="text-[#646964] text-sm">전투력</p>*/}
+                            {/*<p className="text-[#55415f] text-3xl font-bold">{(characterData.stats.filter((stat) => {*/}
+                            {/*    console.log(stat.statName );*/}
+                            {/*    console.log("booelan =" + stat.statName === '전투력');*/}
+                            {/*    return stat.statName === '전투력'*/}
+                            {/*})).statValue}</p>*/}
+                            <div className="grid grid-cols-4 gap-4">
+                                {characterData.stats.map((stat, index) => (
+                                    <div key={`stat-item-${index}`}
+                                         className="flex flex-col items-center justify-center p-2 border border-gray-200 rounded shadow-sm">
+                                        <div className="text-[#646964] text-sm" key={`name-${index}`}>{stat.statName}</div>
+                                        <div className="text-[#55415f]"
+                                             key={`value-${index}`}>{formatStatValue(stat.statValue)}</div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="bg-[#d6d4e0] p-5 rounded-b-lg shadow-lg">
-                    <div className="bg-white p-3 rounded">
+                <div className="bg-white p-3 rounded">
                         {/* Repeat for other character info sections */}
                     </div>
                 </div>
