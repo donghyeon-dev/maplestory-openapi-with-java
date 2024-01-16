@@ -1,6 +1,6 @@
 logging:
   level:
-    com.autocat.maplestoryopenapi: DEBUG
+    com.autocat.maplestory.openapi.nexon: DEBUG
 
 spring:
   cloud:

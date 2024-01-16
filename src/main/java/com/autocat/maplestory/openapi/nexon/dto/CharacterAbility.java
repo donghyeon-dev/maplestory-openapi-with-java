@@ -22,7 +22,7 @@ import java.util.List;
 public class CharacterAbility {
 
     /** 조회 기준일 */
-    OffsetDateTime date;
+    OffsetDateTime date;  
 
     /** 어빌리티 등급 */
     String abilityGrade;

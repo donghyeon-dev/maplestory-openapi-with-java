@@ -23,7 +23,6 @@ public class CharacterController {
     @GetMapping("/overview")
     public CharacterOverview getCharacterBasicInfo(CharacterOcidRequest request) {
         return characterService.getCharacterBasicInfo(request);
-
     }
 
     @GetMapping("/hyper-stat")

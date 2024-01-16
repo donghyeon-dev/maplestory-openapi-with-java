@@ -56,7 +56,7 @@ function App() {
                 characterData.characterGuildName = data.characterBasic.characterGuildName;
                 characterData.characterImage = data.characterBasic.characterImage;
                 characterData.combatPower = data.characterBasic.combatPower;
-                characterData.characterPopularity = data.characterBasic.characterPopularity;
+                characterData.characterPopularity = data.characterPopularity.popularity;
                 characterData.stats = data.characterStat.finalStat;
                 setLoading(false);
             })
@@ -64,8 +64,7 @@ function App() {
                 alert(error.response.data.message);
                 console.log("Error : " + error);
                 setLoading(false);
-            })
-        ;
+            });
 
     }
 
@@ -104,18 +103,14 @@ function App() {
                         <img src={characterData.characterImage} alt="https://placehold.co/100x100"
                              className="square-full w-28 h-28"/>
                         <div>
-                            <p className="text-[#d77355] font-bold">CHARACTER INFO</p>
-                            <p className="text-white text-sm">Lv. {characterData.characterLevel}</p>
-                            <p className="text-white text-sm">{characterData.characterClass}</p>
-                            <p className="text-white text-sm">{characterData.worldName}</p>
-                            <p className="text-white text-sm">유니온 3131</p>
-                            <p className="text-white text-sm">무릉도장 81층</p>
+                            <p className="text-white text-sm">길드명 : {characterData.characterGuildName}</p>
+                            <p className="text-white text-sm">인기도 : {characterData.characterPopularity}</p>
                         </div>
                         <p className="text-white font-bold text-xl">{characterData.characterName}</p>
                     </div>
                     <div className="flex justify-around my-3">
-                        <button className="bg-[#d77355] text-white py-1 px-3 rounded">DETAIL</button>
-                        <button className="bg-[#647c64] text-white py-1 px-3 rounded">STAT</button>
+                        <button className="bg-[#d77355] text-white py-1 px-3 rounded">하이퍼스텟</button>
+                        <button className="bg-[#647c64] text-white py-1 px-3 rounded">어빌리티</button>
                     </div>
                     <div className="bg-[#d6d4e0] p-2">
                         <div className="bg-white p-3 rounded">
